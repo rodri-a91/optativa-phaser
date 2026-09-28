@@ -21,13 +21,11 @@ export class Game extends Phaser.Scene {
 
         this.gameoverImage = this.add.image(400, 90, 'gameover');
 
-        // Texto de marcador
-        this.scoreText = this.add.text(16, 16, 'PUNTOS: 0', {
-            fontSize: '20px',
-            fill: '#fff',
-            fontFamily: 'verdana, arial, sans-serif'
-        });
+        // Llamamos el marcador
+        this.Scoreboard.create();
+
         this.gameoverImage.visible = false;
+
         // Colisión de los laterales y el techo
         this.physics.world.setBoundsCollision(true, true, true, false);
 
@@ -73,11 +71,20 @@ export class Game extends Phaser.Scene {
             this.scene.pause();
         }
     }
-    platformImpact() {
-        this.score = this.score + 100;
-        this.scoreText.setText('PUNTOS: ' + this.score);
-    }
+    platformImpact(ball, platform) {
+        this.Scoreboard.incrementPoints(100);
+        let relativeImpact = ball.x - platform.x;
+        console.log(relativeImpact);
 
+        // Ajustamos la velocidad
+        if (relativeImpact <0.1 && relativeImpact > -0.1) {
+            ball.setVelocityX(Phaser.Math.Between(-10,10))
+        }
+        else {
+            ball.setVelocityX(10*relativeImpact);
+        }
+    }
+    
     // ejecutar() {
     //     console.log("choque")
     //     // this.ball.setVelocity(10,-800);
