@@ -1,14 +1,16 @@
-import {Game} from './game.js'
+import {Game} from './escenas/game.js'
+import { Congratulations } from './escenas/congratulations.js';
+import { Gameover } from './escenas/game-over.js';
 
 const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 500,
-    scene: [Game],
+    scene: [Game, Congratulations, Gameover],
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: {y: 120},
+            // gravity: {y: 120},
             debug: false
         }
     }
