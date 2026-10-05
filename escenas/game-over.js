@@ -1,8 +1,19 @@
-import { RestartButton } from "../componentes/RestartButton";
+import { RestartButton } from "../components/RestartButton.js";
 
 export class Gameover extends Phaser.Scene {
     constructor() {
         super({ key: 'gameover' });
-        this.startButton = new RestartButton(this);
+        this.restartButton = new RestartButton(this);
+    }
+
+    preload() {
+        this.load.image('gameover', 'images/gameover.png');
+        this.restartButton.preload();
+    }
+
+    create() {
+        this.add.image(410, 250, 'background');
+        this.restartButton.create();
+        this.gameoverImage = this.add.image(400, 90, 'gameover');
     }
 }

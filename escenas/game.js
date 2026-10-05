@@ -18,7 +18,7 @@ export class Game extends Phaser.Scene {
         this.load.image('bluebrick', 'images/brickBlue.png');
         this.load.image('greenbrick', 'images/brickGreen.png');
         this.load.image('orangebrick', 'images/brickOrange.png');
-        this.load.image('congrats', 'images/congratulations.png');
+        // this.load.image('congrats', 'images/congratulations.png');
     }
 
     create() {
@@ -48,8 +48,8 @@ export class Game extends Phaser.Scene {
         // this.gameoverImage = this.add.image(400, 90, 'gameover');
         // this.gameoverImage.visible = false;
 
-        this.congratsImage = this.add.image(400, 90, 'congrats');
-        this.congratsImage.visible = false;
+        // this.congratsImage = this.add.image(400, 90, 'congrats');
+        // this.congratsImage.visible = false;
 
         // Colisión de los laterales y el techo
         this.physics.world.setBoundsCollision(true, true, true, false);
@@ -113,18 +113,26 @@ export class Game extends Phaser.Scene {
 
             }
         }
-        if (this.cursors.space.isDown) {
-            this.scene.restart();
-        }
+        // if (this.cursors.space.isDown) {
+        //     this.scene.restart();
+        // }
 
         // Control del game over
         if (this.ball.y > 500) {
-            console.log("Game over...");
-            this.gameoverImage.visible = true;
-            this.scene.pause();
-            this.bricks.setVisible(false);
+            // console.log("Game over...");
+            // this.gameoverImage.visible = true;
+            // this.scene.pause();
+            // this.bricks.setVisible(false);
+            this.showGameOver();
         }
+
+        
     }
+
+    showGameOver() {
+        this.scene.start('gameover');
+    }
+
     platformImpact(ball, platform) {
         let relativeImpact = ball.x - platform.x;
         console.log(relativeImpact);
@@ -141,12 +149,19 @@ export class Game extends Phaser.Scene {
     brickImpact(ball, brick) {
         brick.disableBody(true, true);
         this.Scoreboard.incrementPoints(100);
-        if (this.bricks.countActive() === 0){
-            this.congratsImage.visible=true;
-            this.scene.pause();
+        if (this.bricks.countActive() === 0) {
+            // this.congratsImage.visible = true;
+            // this.scene.pause();
+            this.showCongratulations();
         }
 
     }
+
+    showCongratulations() {
+        this.scene.start('congratulations');
+    }
+
+
 
     // ejecutar() {
     //     console.log("choque")
